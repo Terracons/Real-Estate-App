@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Home from './Pages/Home'
-import Signin from './Pages/Signin'
+import SignIn from './Pages/Signin'
 import SignUp from './Pages/SignUp'
 import About from './Pages/About'
 import Profile from './Pages/Profile'
@@ -16,7 +16,7 @@ export default function App() {
       <Route path='/' element={<Home/>}/>
     </Routes>
     <Routes>
-      <Route path='/Sign-in' element={<Signin/>}/>
+      <Route path='/Sign-in' element={<SignIn/>}/>
     </Routes>
     <Routes>
       <Route path='/Sign-up' element={<SignUp/>}/>
