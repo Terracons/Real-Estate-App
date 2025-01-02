@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {Link, useNavigate} from "react-router-dom"
 import {  useDispatch, useSelector } from 'react-redux'
 import { SignInSuccess, SignInStart,SignInFailure } from '../redux/user/userSlice'
+import Outh from '../components/Outh';
 
 
 
@@ -53,7 +54,9 @@ export default function SignIn() {
             <input type="email"  placeholder='email' id="email" className='border rounded-lg p-3'onChange={handleform}/>
             <input type="password"  placeholder='password' id='password' className='border rounded-lg p-3'onChange={handleform}/>
             <button disabled= {loading} className='max-w-lg bg-slate-700 p-3 rounded-lg border text-white hover:opacity-95 disabled:opacity-80'>{loading? "Loading" :"Sign In" }</button>
+            <Outh/>
       </form>
+      
       <h3 className='flex gap-2 my-2'>
         <span>Don't have an account?</span>
         <Link to="/sign-up">

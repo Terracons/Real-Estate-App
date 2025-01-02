@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {Link, useNavigate} from "react-router-dom"
+import Outh from '../components/Outh'
 
 export default function SignUp() {
   const [formData, setformData] = useState({})
@@ -50,7 +51,9 @@ export default function SignUp() {
             <input type="email"  placeholder='email' id="email" className='border rounded-lg p-3'onChange={handleform}/>
             <input type="password"  placeholder='password' id='password' className='border rounded-lg p-3'onChange={handleform}/>
             <button disabled= {loading} className='max-w-lg bg-slate-700 p-3 rounded-lg border text-white hover:opacity-95 disabled:opacity-80'>{loading? "Loading" :"Sign Up" }</button>
+            <Outh/>
       </form>
+      
       <h3 className='flex gap-2 my-2'>
         <span>Have an account?</span>
         <Link to="/sign-in">
