@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import userRouter from "./router/userRouter.js";
 import authRoute from "./router/authRoute.js"
+import cookieParser from "cookie-parser";
 
 dotenv.config()
 
@@ -13,7 +14,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 const app = express()
 app.use(express.json())
-
+app.use(cookieParser())
 
 app.listen(3000, ()=>{
     console.log("app is running on 3000");
