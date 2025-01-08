@@ -19,7 +19,7 @@ export default function SignIn() {
     const handleSubmit = async(e)=>{
       e.preventDefault()
       try {
-      dispatch(SignInStart)
+      dispatch(SignInStart())
       const res = await fetch("/api/auth/signin", {
         method:"POST",
         headers:{
@@ -41,7 +41,7 @@ export default function SignIn() {
     
         
       } catch (error) {
-        dispatch(SignInFailure(data.message || 'An error occurred during sign in'))
+        dispatch(SignInFailure(error.message || 'An error occurred during sign in'))
         
 
         

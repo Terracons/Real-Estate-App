@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice';
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -9,6 +10,7 @@ export default function Profile() {
   const upload_presets = "real_estate";
   const dispatch = useDispatch();
   const [urlImage, setUrlImage] = useState('')
+  const [forminfo, setformInfo]= useState({})
 
   const handleImage = async (e) => {
     const file = e.target.files[0];
@@ -35,11 +37,53 @@ export default function Profile() {
     }
   };
 
-  return (
-    <div style={{ padding: '20px', textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
-      <h1 className="text-4xl font-bold">Profile</h1>
+  console.log(forminfo);
 
-      <form className="flex flex-col max-w-80 mx-auto gap-4">
+  const handleInput =(e)=>{
+    setformInfo({avatar:urlImage,
+      ...forminfo, [e.target.id]:e.target.value
+    })
+  }
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+
+  try {
+    dispatch(updateStart())
+    const res= fetch(`/api/user/update/${currentUser._id}`, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(forminfo)
+
+    })
+
+    const data = await res.json()
+    if(data.success === false)
+    {dispatch(updateFailure(data.message))
+    console.log(data.message);
+    return;
+  }
+  dispatch(updateSuccess(data))
+
+
+    
+  } 
+  catch (error) {
+    dispatch(updateFailure(error.message))
+    
+  }
+
+  }
+
+  
+
+  return (
+    <div className='max-w-2xl flex flex-col mx-auto p-7'>
+      <h1 className="text-4xl font-bold text-center">Profile</h1>
+
+      <form className="flex flex-col gap-4 m" onSubmit={handleSubmit}>
         <input
           type="file"
           ref={fileRef}
@@ -58,29 +102,36 @@ export default function Profile() {
         <input
           className="p-3 rounded-lg"
           type="text"
-          placeholder={currentUser.username}
+          placeholder="username"
+          defaultValue={currentUser.username}
           id="username"
+          
+          onChange={handleInput}
         />
         <input
           className="p-3 rounded-lg"
           type="email"
-          placeholder={currentUser.email}
+          placeholder="email"
+          defaultValue={currentUser.email}
           id="email"
+          onChange={handleInput}
         />
         <input
           className="p-3 rounded-lg"
           type="password"
           placeholder="password"
           id="password"
+          onChange={handleInput}
         />
         <button className="p-3 rounded-lg bg-slate-700 text-white hover:opacity-90">
           Update
         </button>
-        <button className="p-3 rounded-lg bg-green-700 text-white hover:opacity-90">
+
+      </form>
+      <button className="p-3 rounded-lg bg-green-700 text-white hover:opacity-90 my-5 " >
           Create Listing
         </button>
-      </form>
-      <p className="text-red-700 flex max-w-80 mx-auto justify-between mt-3">
+      <p className="text-red-700 flex mt-3 justify-between">
         <span>Delete Account</span>
         <span>Sign Out</span>
       </p>
