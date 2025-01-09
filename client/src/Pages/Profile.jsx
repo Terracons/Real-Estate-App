@@ -29,6 +29,7 @@ export default function Profile() {
       );
       const imageUrl = res.data.secure_url;
       setUrlImage(imageUrl)
+      setformInfo((prev) => ({ ...prev, avatar: imageUrl }));
       console.log('Image uploaded successfully:', imageUrl);
       setLoading(false);
     } catch (err) {
@@ -50,12 +51,12 @@ export default function Profile() {
 
   try {
     dispatch(updateStart())
-    const res= fetch(`/api/user/update/${currentUser._id}`, {
+    const res= await fetch(`/api/user/update/${currentUser._id}`, {
       method:'POST',
       headers:{
         'Content-Type':'application/json'
       },
-      body:JSON.stringify(forminfo)
+      body:JSON.stringify(forminfo),
 
     })
 
