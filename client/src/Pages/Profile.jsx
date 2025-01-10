@@ -33,7 +33,7 @@ export default function Profile() {
       console.log('Image uploaded successfully:', imageUrl);
       setLoading(false);
     } catch (err) {
-      console.error('Error uploading image:', err);
+      console.error('Error uploading image: ', err);
       setLoading(false);
     }
   };
