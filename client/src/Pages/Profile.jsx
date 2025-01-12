@@ -39,7 +39,6 @@ export default function Profile() {
   };
 
   console.log(forminfo);
-  console.log("hello");
 
   const handleInput =(e)=>{
     setformInfo({avatar:urlImage,
