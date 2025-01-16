@@ -8,7 +8,6 @@ const test = (req, res)=>{
     })
 
 }
-console.log("hello");
 export default test
 export const updateUser = async(req, res, next)=>{
     if(req.user.id !== req.params.id) return next(errorHandler(403, 'You can only update your own account!'))
